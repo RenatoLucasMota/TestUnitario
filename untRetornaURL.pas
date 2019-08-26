@@ -43,6 +43,8 @@ var
   i: dword;
 begin
   result := InternetGetConnectedState(@i,0);
+  if not result then
+    raise EConexaoErro.Create('Não há conexão com a internet!');
 end;
 
 end.

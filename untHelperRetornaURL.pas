@@ -3,7 +3,7 @@ unit untHelperRetornaURL;
 interface
 
 uses
-  untRetornaURL, WinINet;
+  untRetornaURL, WinINet, untRetornaURLAPI;
 
 type
   TRetornaURLHelper = class helper for TRetornaURL
@@ -36,13 +36,13 @@ var
   dwcode: array[1..20] of char;
   res: pchar;
 begin
-  if pos('http://', lowercase(url)) = 0 then
-    url := 'http://' + url;
+  if pos('http://', lowercase(Self.URL)) = 0 or pos('https://', lowercase(Self.URL))then
+    Self.URL := 'http://' + Self.URL;
   Result := false;
   hSession := InternetOpen('InetURL:/1.0', INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0);
   if assigned(hsession) then
   begin
-    hfile := InternetOpenUrl(hsession, pchar(url), nil, 0, INTERNET_FLAG_RELOAD, 0);
+    hfile := InternetOpenUrl(hsession, pchar(Self.URL), nil, 0, INTERNET_FLAG_RELOAD, 0);
     dwIndex := 0;
     dwCodeLen := 10;
     HttpQueryInfo(hfile, HTTP_QUERY_STATUS_CODE, @dwcode, dwcodeLen, dwIndex);
@@ -52,6 +52,8 @@ begin
       InternetCloseHandle(hfile);
     InternetCloseHandle(hsession);
   end;
+  if not Result then
+    raise EURLInvalida.Create('Url inválida!');
 end;
 
 end.

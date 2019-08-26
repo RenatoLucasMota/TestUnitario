@@ -7,6 +7,7 @@ uses
 
 type
   EConexaoErro = class(Exception);
+  EURLInvalida = class(Exception);
 
   TTipoURL = (tuURLGoogle, tuURLFacebook, tuURLYoutube);
 

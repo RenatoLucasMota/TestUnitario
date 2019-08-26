@@ -4,7 +4,7 @@ interface
 
 uses
   TestFramework, untFactoryRetornaURL, untRetornaURL, untRetornaURLAPI, SysUtils,
-  untHelperRetornaURL;
+  untHelperRetornaURL, untConstantesURL;
 
 type
   TRetornaURLTest = class(TTestCase)
@@ -16,11 +16,15 @@ type
     procedure TearDown; override;
   published
     procedure TestConexao;
-    procedure TestException;
-    procedure TestURLValida;
-    procedure TestURLVazia;
     procedure TestNovaURL;
+    procedure TestURLValida;
+    procedure TestExceptionUrlInvalida;
+    procedure TestURLVazia;
   end;
+
+const
+  NOVA_URL = 'http://www.uol.com.br';
+  URL_INVALIDA = 'wxw.equipejeep.cow.bx';
 
 implementation
 
@@ -43,27 +47,30 @@ end;
 
 procedure TRetornaURLTest.TestConexao;
 begin
-  CheckFalse(FRetornaURL.TestarConexao, 'Sem conexão com a internet!');
-end;
-
-procedure TRetornaURLTest.TestException;
-begin
-  CheckFalse(FRetornaURL.TestarConexao, 'Sem conexão com a internet!');
+  CheckTrue(FRetornaURL.TestarConexao, 'Sem conexão com a internet!');
 end;
 
 procedure TRetornaURLTest.TestNovaURL;
 begin
-  CheckFalse(FRetornaURL.TestarConexao, 'Sem conexão com a internet!');
+  FRetornaURL.AtualizaURL(NOVA_URL);
+  CheckEquals(FRetornaURL.RetornaURL, NOVA_URL, 'URL não foi atualizada!');
 end;
 
 procedure TRetornaURLTest.TestURLValida;
 begin
-  CheckFalse(FRetornaURL.TestarConexao, 'Sem conexão com a internet!');
+  CheckTrue(FRetornaURL.VerificaURLValida, 'Url inválida!');
+end;
+
+procedure TRetornaURLTest.TestExceptionUrlInvalida;
+begin
+  FRetornaURL.AtualizaURL(URL_INVALIDA);
+  CheckException(TestURLValida, EURLInvalida, 'Sem conexão com a internet!');
 end;
 
 procedure TRetornaURLTest.TestURLVazia;
 begin
-  CheckFalse(FRetornaURL.TestarConexao, 'Sem conexão com a internet!');
+  FRetornaURL.LimpaURL;
+  CheckEquals(FRetornaURL.RetornaURL, VAZIO, 'URL ñão foi limpa!');
 end;
 
 initialization
