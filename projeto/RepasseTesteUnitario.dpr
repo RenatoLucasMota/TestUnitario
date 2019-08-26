@@ -16,13 +16,13 @@ program RepasseTesteUnitario;
 
 uses
   DUnitTestRunner,
-  untRetornaURLAPI in 'untRetornaURLAPI.pas',
-  untRetornaURL in 'untRetornaURL.pas',
-  untConstantesURL in 'untConstantesURL.pas',
-  untFactoryRetornaURL in 'untFactoryRetornaURL.pas',
-  untHelperRetornaURL in 'untHelperRetornaURL.pas',
-  untRetornaURLTest in 'untRetornaURLTest.pas',
-  untFactoryRetornaURLAPI in 'untFactoryRetornaURLAPI.pas';
+  untConstantesURL in '..\src\untConstantesURL.pas',
+  untFactoryRetornaURL in '..\src\untFactoryRetornaURL.pas',
+  untFactoryRetornaURLAPI in '..\src\untFactoryRetornaURLAPI.pas',
+  untHelperRetornaURL in '..\src\untHelperRetornaURL.pas',
+  untRetornaURL in '..\src\untRetornaURL.pas',
+  untRetornaURLAPI in '..\src\untRetornaURLAPI.pas',
+  untRetornaURLTest in '..\src\untRetornaURLTest.pas';
 
 {R *.RES}
 
