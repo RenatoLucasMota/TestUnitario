@@ -41,7 +41,7 @@ end;
 procedure TRetornaURLTest.TearDown;
 begin
   inherited;
-  FRetornaURL := nil;
+  FreeAndNil(FRetornaURL);
   FreeAndNil(FFactoryURL);
 end;
 
@@ -53,7 +53,7 @@ end;
 procedure TRetornaURLTest.TestNovaURL;
 begin
   FRetornaURL.AtualizaURL(NOVA_URL);
-  CheckEquals(FRetornaURL.RetornaURL, NOVA_URL, 'URL não foi atualizada!');
+  CheckEquals(FRetornaURL.RetornaURL, NOVA_URL, 'Url não foi atualizada!');
 end;
 
 procedure TRetornaURLTest.TestURLValida;
@@ -64,13 +64,13 @@ end;
 procedure TRetornaURLTest.TestExceptionUrlInvalida;
 begin
   FRetornaURL.AtualizaURL(URL_INVALIDA);
-  CheckException(TestURLValida, EURLInvalida, 'Sem conexão com a internet!');
+  CheckException(TestURLValida, EURLInvalida, 'Url inválida!');
 end;
 
 procedure TRetornaURLTest.TestURLVazia;
 begin
   FRetornaURL.LimpaURL;
-  CheckEquals(FRetornaURL.RetornaURL, VAZIO, 'URL ñão foi limpa!');
+  CheckEquals(FRetornaURL.RetornaURL, VAZIO, 'Url não foi limpa!');
 end;
 
 initialization
